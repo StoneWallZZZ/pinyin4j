@@ -1,33 +1,79 @@
-pinyin4j
-========
+# 开源项目pinyin4j使用简介
+pinyin4j这个java库方便实现将汉字转换拼音
 
-A copy of http://sourceforge.net/projects/pinyin4j, then deploy it to maven central repository.
+开源地址：[https://github.com/open-android/pinyin4j](https://github.com/open-android/pinyin4j "开源项目地址")
 
-### Download ###
-Download the jar via maven:
-```xml
-<dependency>
-    <groupId>com.belerweb</groupId>
-    <artifactId>pinyin4j</artifactId>
-    <version>2.5.0</version>
-</dependency>
-```
+# 使用效果
 
-### QQ Group ###
-QQ群：479540440
+（重）--（chong2/zhong4）
+（好）--（HĂO/HÀO）
 
-### 多音字识别 ###
-在pinyin4j的基础上添加了多音字识别，带近一万个多音词，但是这远远不够，所以用户可设置外挂词库	
 
-### 外挂多音词库 ###
-用户配置的外挂词库会覆盖系统中相同词的读音,可用于纠错
+![](py4j01.png)
 
-配置方式很简单,只需要配置路径即可 
-```
-MultiPinyinConfig.multiPinyinPath="/Users/yiboliu/my_multi_pinyin.txt"
-```
+## 使用步骤
 
-格式同系统的多音词库,如: 
-```
-吸血鬼日记 (xi1,xue4,gui3,ri4,ji4)
-```
+### 1. 在project的build.gradle添加如下代码(如下图)
+
+	allprojects {
+	    repositories {
+	        ...
+	        maven { url "https://jitpack.io" }
+	    }
+	}
+
+![](common.png)
+
+### 2. 在Module的build.gradle添加依赖
+	
+	compile 'com.github.open-android:pinyin4j:2.5.0'
+
+### 3.演示步骤
+
+* 将演示代码复制到Activity的onCreate方法中
+
+
+        //-------------------默认格式转换-----------------------------
+        String[] pyStrs = PinyinHelper.toHanyuPinyinStringArray('重');
+
+        for (String s : pyStrs) {
+            System.out.println(s);
+        }
+
+
+
+        //-------------------指定格式转换----------------------------
+        HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
+
+        // UPPERCASE：大写  (ZHONG)
+        // LOWERCASE：小写  (zhong)
+        format.setCaseType(HanyuPinyinCaseType.UPPERCASE);//输出大写
+
+        // WITHOUT_TONE：无音标  (zhong)
+        // WITH_TONE_NUMBER：1-4数字表示音标  (zhong4)
+        // WITH_TONE_MARK：直接用音标符（必须WITH_U_UNICODE否则异常）  (zhòng)
+        format.setToneType(HanyuPinyinToneType.WITH_TONE_MARK);
+
+        // WITH_V：用v表示ü  (nv)
+        // WITH_U_AND_COLON：用"u:"表示ü  (nu:)
+        // WITH_U_UNICODE：直接用ü (nü)
+        format.setVCharType(HanyuPinyinVCharType.WITH_U_UNICODE);
+
+        String[] hao = PinyinHelper.toHanyuPinyinStringArray('好', format);
+
+        for (String s : hao) {
+            System.out.println(s);
+        }
+   
+
+> 注意捕获BadHanyuPinyinOutputFormatCombination异常
+ 
+
+* 更多干货请下载app
+
+
+![黑马助手.png](http://upload-images.jianshu.io/upload_images/4037105-f777f1214328dcc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+* 欢迎关注微信公众号
+
+![](http://upload-images.jianshu.io/upload_images/4037105-8f737b5104dd0b5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
