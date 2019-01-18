@@ -102,7 +102,7 @@ class PinyinFormatter {
       final char charE = 'e';
       final String ouStr = "ou";
       final String allUnmarkedVowelStr = "aeiouv";
-      final String allMarkedVowelStr = "āáăàaēéĕèeīíĭìiōóŏòoūúŭùuǖǘǚǜü";
+      final String allMarkedVowelStr = "āáǎàaēéěèeīíǐìiōóǒòoūúǔùuǖǘǚǜü";
 
       if (lowerCasePinyinStr.matches("[a-z]*[1-5]")) {
 
